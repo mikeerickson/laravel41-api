@@ -16,7 +16,8 @@ class CustomersController extends \BaseController {
 		if($customers)
 		{
 			return Response::json($customers,200);
-		} else {
+		} else
+		{
 			return Response::json(["response" => "No Matching {$this->tablename} Found"],404);
 		}
 	}
@@ -40,9 +41,12 @@ class CustomersController extends \BaseController {
 	{
 		$input = Input::all();
 		$customer = Customer::create($input);
-		if ( $customer ) {
+		if ( $customer )
+		{
 			return Response::json(['response' => "{$this->tablename} Created Successfully"],201);
-		} else {
+		}
+		else
+		{
 			return Response::json(['response' => "Unable to create {$this->tablename}"],300);
 		}
 	}
@@ -59,7 +63,9 @@ class CustomersController extends \BaseController {
 		if ( $customer )
 		{
 			return Response::json($customer->toArray());
-		} else {
+		}
+		else
+		{
 			return Response::json(['response' => "Unable to locate {$this->tablename}"], 404);
 		}
 	}
@@ -76,7 +82,8 @@ class CustomersController extends \BaseController {
 		if ( $customer )
 		{
 			return Response::json($customer->toArray(), 200);
-		} else {
+		} else
+		{
 			return Response::json(['response' => "Unable to locate {$this->tablename}"],404);
 		}
 	}
@@ -92,13 +99,19 @@ class CustomersController extends \BaseController {
 		$customer = Customer::find($id);
 		$input    = Input::all();
 
-		if(! $customer) {
+		if(! $customer)
+		{
 			return Response::json(["response" => "Unable to locate {$this->tablename}"], 404);
-		} else {
+		}
+		else
+		{
 			$affectedRows = Customer::where('id', $id)->update($input);
-			if($affectedRows) {
+			if($affectedRows)
+			{
 				return Response::json(Customer::find($id)->toArray(),200);
-			} else {
+			}
+			else
+			{
 				return Response::json(["response" => "An error occurred updating {$this->tablename}"], 500);
 			}
 		}
@@ -115,7 +128,9 @@ class CustomersController extends \BaseController {
 		if ( Customer::destroy($id) )
 		{
 			return Response::json(['response' => "{$this->tablename} Deleted Successfully"],200);
-		} else {
+		}
+		else
+		{
 			return Response::json(['response' => "Unable to locate {$this->tablename}"],404);
 		}
 	}
