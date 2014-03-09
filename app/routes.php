@@ -11,6 +11,9 @@
 |
 */
 
+use API\MyClass;
+use Illuminate\Support\Facades\App;
+
 App::before(function($request)
 {
 	if(starts_with($_SERVER['REQUEST_URI'],'/api/')) {
@@ -31,6 +34,11 @@ Route::group(['prefix' => 'api/v1', 'before' => ''], function(){
 	Route::resource('customers', 'CustomersController');
 });
 
+// setup wildcard to return 500 if nothing caught above
+Route::any('{path?}', function($path) {
+	$path = MyClass::capitalize($path);
+	return Response::json(['response' => "{$path} Invalid URI"],500);
+})->where('path', '.+');
 
 //Route::group(array('prefix' => 'api/v1', 'before' => 'api.auth|api.limit'), function() {
 //	Route::resource('customers', 'CustomersAPIController');

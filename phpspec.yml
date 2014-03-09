@@ -1,0 +1,6 @@
+# formatter.name: pretty
+suites:
+    api:
+        namespace: 'API'
+        spec_path: 'app/test/'
+        src_path: 'app/'  #can the comment stay here and still work
