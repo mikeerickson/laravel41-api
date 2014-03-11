@@ -11,7 +11,7 @@
 |
 */
 
-use API\MyClass;
+use API\Utilities;
 use Illuminate\Support\Facades\App;
 
 App::before(function($request)
@@ -36,7 +36,7 @@ Route::group(['prefix' => 'api/v1', 'before' => ''], function(){
 
 // setup wildcard to return 500 if nothing caught above
 Route::any('{path?}', function($path) {
-	$path = MyClass::capitalize($path);
+	$path = Utilities::capitalize($path);
 	return Response::json(['response' => "{$path} Invalid URI"],500);
 })->where('path', '.+');
 
