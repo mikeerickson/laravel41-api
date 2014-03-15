@@ -24,4 +24,13 @@ class UtilitiesSpec extends ObjectBehavior
 	function it_should_return_passed_string_titlecase() {
 		$this->titlecase('mike')->shouldReturn('Mike');
 	}
+
+	function it_should_parse_string_into_array() {
+		$this->parse('name:string, body:text')->shouldReturn(
+			[
+				"name" => "string",
+				"body" => "text"
+			]
+		);
+	}
 }

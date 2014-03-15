@@ -2,5 +2,8 @@
 suites:
     api:
         namespace: 'API'
-        spec_path: 'app/test/'
-        src_path: 'app/'  #can the comment stay here and still work
+        spec_path: 'app/'
+        src_path:  'app/'  #can the comment stay here and still work
+
+# create spec using following syntax (namespace is case-sensitive)
+#  phpspec desc API/SomeTest
