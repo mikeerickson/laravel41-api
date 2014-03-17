@@ -4,6 +4,7 @@ suites:
         namespace: 'API'
         spec_path: 'app/'
         src_path:  'app/'  #can the comment stay here and still work
-
+extensions:
+    - PhpSpec\Laravel\Extension\LaravelExtension
 # create spec using following syntax (namespace is case-sensitive)
 #  phpspec desc API/SomeTest

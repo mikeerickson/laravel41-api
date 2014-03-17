@@ -1,8 +1,12 @@
 <?php namespace API;
 
+use API\Exceptions\UnrecognizedType;
+use API\Exceptions\InvalidCustomer;
+
 class Utilities {
 
-	public static function capitalize($str){
+	public function capitalize($str)
+	{
 		return strtoupper($str);
 	}
 
@@ -43,8 +47,43 @@ class Utilities {
 	 */
 	public function parseChunks($item, $parsed)
 	{
-		list($field, $type) = explode(':', $item);
+		if (strpos($item,':')>0)
+		{
+			list($field, $type) = explode(':', $item);
+		}
+		else
+		{
+			$field = $item;
+			$type  = "string";
+		}
+		if( ! $this->isValidType($type) )
+		{
+			throw new UnrecognizedType;
+		}
+
 		$parsed[$field] = $type;
 		return $parsed;
+	}
+
+	/**
+	 * @param $type
+	 * @return bool
+	 */
+	public function isValidType($type)
+	{
+		$validTypes = ['string', 'text', 'integer', 'datetime', 'boolean'];
+		return in_array($type, $validTypes);
+	}
+
+	public function getCustomer($id = null)
+	{
+		$customer = \Customer::find($id);
+		if( ! $customer)
+		{
+			throw new InvalidCustomer;
+		}
+
+		return \Customer::find($id)->customer_name;
+
 	}
 }

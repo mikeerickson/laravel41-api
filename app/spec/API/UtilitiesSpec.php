@@ -4,8 +4,9 @@ namespace spec\API;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use PhpSpec\Laravel\LaravelObjectBehavior;
 
-class UtilitiesSpec extends ObjectBehavior
+class UtilitiesSpec extends LaravelObjectBehavior
 {
     function it_is_initializable()
     {
@@ -26,11 +27,44 @@ class UtilitiesSpec extends ObjectBehavior
 	}
 
 	function it_should_parse_string_into_array() {
-		$this->parse('name:string, body:text')->shouldReturn(
+		$this->parse('name:string, body:text')
+			 ->shouldReturn(
+				[
+					"name" => "string",
+					"body" => "text"
+				]
+		);
+	}
+
+	function it_should_default_to_string_type () {
+		$this->parse('name, body:text')
+			 ->shouldReturn(
+				 [
+					 "name" => "string",
+					 "body" => "text"
+				 ]
+			 );
+
+		$this->parse('name,body') -> shouldReturn(
 			[
 				"name" => "string",
-				"body" => "text"
+				"body" => "string"
 			]
 		);
 	}
+
+	function it_should_throw_exception_on_invalid_type () {
+		$this->shouldThrow('API\Exceptions\UnrecognizedType')
+			 ->duringParse('age:longint');
+	}
+
+	function it_should_return_data () {
+		$this->getCustomer(5)->shouldReturn('Kuhn Group');
+	}
+
+	function it_should_throw_exception_on_invalid_id () {
+		$this->shouldThrow('API\Exceptions\InvalidCustomer')
+			 ->duringGetCustomer();
+	}
 }
+

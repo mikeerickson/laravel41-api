@@ -7,6 +7,10 @@
 		"laravel/framework": "4.1.*",
 		"way/generators": "2.*",
 		"fzaninotto/faker": "1.3.*",
+		"itsgoingd/clockwork": "dev-master"
+	},
+	"require-dev": {
+		"benconstable/phpspec-laravel": "*",
 		"phpspec/phpspec": "2.0.*@dev"
 	},
 	"autoload": {
