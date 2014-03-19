@@ -82,7 +82,6 @@ class Utilities {
 		{
 			throw new InvalidCustomer;
 		}
-
 		return \Customer::find($id)->customer_name;
 
 	}
